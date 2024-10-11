@@ -1,7 +1,8 @@
+import { Title } from '@/components'
 import React from 'react'
 
 export default function () {
   return (
-    <h1>Cart Page</h1>
+    <Title title="Cart" subtitle="productos seleccionados" className="mb-2"/>
   )
 }
