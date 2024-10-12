@@ -42,7 +42,7 @@ export default function ({params}:Props) {
         <SizeSelector selectedSize={product.sizes[0]} availableSizes={product.sizes} />
 
         {/*Selector de cantidad  */}
-        <QuantitySelector quantity={2}/>
+        <QuantitySelector quantity={0}/>
 
         {/*button  */}
         <button className='btn-primary my-5'>Agregar al carrito</button>
