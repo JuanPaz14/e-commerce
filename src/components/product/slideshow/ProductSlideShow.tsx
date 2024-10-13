@@ -2,7 +2,7 @@
 
 import {Swiper, SwiperSlide } from "swiper/react";
 import {Swiper as SwiperObject} from 'swiper';
-import { FreeMode, Navigation, Thumbs } from "swiper/modules";
+import { Autoplay, FreeMode, Navigation, Thumbs } from "swiper/modules";
 import Image  from "next/image";
 // Import Swiper styles
 import 'swiper/css';
@@ -33,8 +33,11 @@ export const ProductSlideShow = ({images,title,className}:Props) => {
                 } as React.CSSProperties}
                 spaceBetween={10}
                 navigation={true}
+                autoplay={{
+                    delay:2500
+                }}
                 thumbs={{ swiper: thumbsSwiper }}
-                modules={[FreeMode, Navigation, Thumbs]}
+                modules={[FreeMode, Navigation, Thumbs,Autoplay]}
                 className="mySwiper2"
             >  
 
@@ -46,13 +49,35 @@ export const ProductSlideShow = ({images,title,className}:Props) => {
                                 height={800}
                                 src = {`/products/${image}`}
                                 alt = {title}
-                                className="rouded-lg object-fill"
+                                className="rounded-xl object-fill"
                             />
-                        </SwiperSlide>
+                        </SwiperSlide>     
                     ))
                 }
-
-                
+            </Swiper>
+            <Swiper
+                onSwiper={setThumbsSwiper}
+                spaceBetween={10}
+                slidesPerView={4}
+                freeMode={true}
+                watchSlidesProgress={true}
+                modules={[FreeMode, Navigation, Thumbs]}
+                className="mySwiper"
+            >
+                {
+                    images.map(image=>(
+                        <SwiperSlide key={image}>
+                            <Image
+                                width={200}
+                                height={200}
+                                src = {`/products/${image}`}
+                                alt = {title}
+                                className="rounded-xl object-fill"
+                            />
+                        </SwiperSlide>
+                        
+                    ))
+                }
             </Swiper>
         </div>
     

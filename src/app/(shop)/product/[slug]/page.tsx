@@ -4,7 +4,7 @@ import {Category} from '@/interfaces';
 import { initialData } from '@/seed/seed';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import { ProductSlideShow, QuantitySelector, SizeSelector } from '@/components';
+import { ProductMobileSlideShow, ProductSlideShow, QuantitySelector, SizeSelector } from '@/components';
 
 interface Props{
   params: {
@@ -29,8 +29,22 @@ export default function ({params}:Props) {
       
       {/*Slidesshow */}
       <div className='col-span-1 md:col-span-2'>
-        <ProductSlideShow images={product.images} title={product.title} />
-        
+
+        {/*Mobile slideShow */}
+        <ProductMobileSlideShow 
+          images={product.images} 
+          title={product.title} 
+          className='block md:hidden' 
+        />
+
+
+        {/*Desktop slideshow */}
+        <ProductSlideShow 
+          images={product.images} 
+          title={product.title} 
+          className='hidden md:block'
+        />
+      
       </div>
       
       
