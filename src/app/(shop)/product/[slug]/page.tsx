@@ -3,7 +3,7 @@ import { TitleFont } from '@/config/fonst';
 import {Category} from '@/interfaces';
 import { initialData } from '@/seed/seed';
 import { notFound } from 'next/navigation';
-import Image from 'next/image';
+
 import { ProductMobileSlideShow, ProductSlideShow, QuantitySelector, SizeSelector } from '@/components';
 
 interface Props{
