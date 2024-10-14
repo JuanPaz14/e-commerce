@@ -3,9 +3,11 @@ import { initialData } from '@/seed/seed'
 import Link from 'next/link'
 import React from 'react'
 import Image from 'next/image';
+import { redirect } from 'next/navigation';
 
 export default function () {
 
+  redirect('/empty');
   const productsInCart = [
     initialData.products[0],
     initialData.products[1],
