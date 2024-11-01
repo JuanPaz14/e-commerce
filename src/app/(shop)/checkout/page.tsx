@@ -1,10 +1,10 @@
-import { QuantitySelector, Title } from '@/components'
+import {  Title } from '@/components'
 import { initialData } from '@/seed/seed'
 import Link from 'next/link'
 import React from 'react'
 import Image from 'next/image';
 
-export default function () {
+export default function CheckoutPage () {
 
   const productsInCart = [
     initialData.products[0],

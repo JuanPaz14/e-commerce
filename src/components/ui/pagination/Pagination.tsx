@@ -1,4 +1,7 @@
+
 'use client';
+
+
 import { generatedPaginationNumber } from "@/utils";
 import clsx from "clsx";
 import Link from "next/link";
@@ -16,7 +19,7 @@ export const Pagination = ({totalPages}:Props) => {
     const searchParams = useSearchParams();
 
     const pageString = searchParams.get('page') ?? 1;
-    let currentPage = isNaN(+pageString) ? 1: +pageString //obteniendo la pagina actual
+    const currentPage = isNaN(+pageString) ? 1: +pageString //obteniendo la pagina actual
 
     if(currentPage < 1 || isNaN(+pageString)){
         redirect(pathname);
@@ -54,7 +57,7 @@ export const Pagination = ({totalPages}:Props) => {
             href={createPageUrl(currentPage-1)}><IoChevronBackOutline size={30}/></a></li>
 
         {
-            allPages.map((page,index)=>(
+            allPages.map((page)=>(
                 <li key={page} className="page-item"><Link
                 className = { clsx(
                     "page-link relative block py-1.5 px-3 border-0  outline-none transition-all duration-300 rounded background-colo text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none",

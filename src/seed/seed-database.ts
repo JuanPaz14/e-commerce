@@ -1,6 +1,6 @@
 import { initialData } from "./seed"; // Asegúrate de que la ruta sea correcta
 import prisma from '../lib/prisma';
-import Image from 'next/image';
+
 
 async function main() {
 

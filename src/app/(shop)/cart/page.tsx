@@ -3,9 +3,9 @@ import { initialData } from '@/seed/seed'
 import Link from 'next/link'
 import React from 'react'
 import Image from 'next/image';
-import { redirect } from 'next/navigation';
 
-export default function () {
+
+export default function CartPage () {
 
   const productsInCart = [
     initialData.products[0],

@@ -1,6 +1,6 @@
 'use client'
 import { useState } from "react";
-import { IoAddCircleOutline, IoRemove, IoRemoveCircle, IoRemoveCircleOutline } from "react-icons/io5";
+import { IoAddCircleOutline, IoRemoveCircleOutline } from "react-icons/io5";
 
 interface Props{
     quantity:number;
