@@ -5,6 +5,8 @@ import { notFound } from 'next/navigation';
 import type { Metadata, ResolvingMetadata } from "next";
 import { ProductMobileSlideShow, ProductSlideShow, QuantitySelector, SizeSelector, StockLabel } from '@/components';
 import { getProductBySlug, getStockBySlug } from '@/actions';
+import { AddToCart } from './ui/AddToCart';
+
 
 
 interface Props{
@@ -81,14 +83,7 @@ export default async function ProductBySlugPage({params}:Props) {
         <h1 className={`${TitleFont.className} antialiased font-bold text-xl`}>{product.title}</h1>
         
         <p className='text-lg mb-5'>${product.price}</p>
-        {/*Selector de tallas */}
-        <SizeSelector selectedSize={product.sizes[0]} availableSizes={product.sizes} />
-
-        {/*Selector de cantidad  */}
-        <QuantitySelector quantity={0}/>
-
-        {/*button  */}
-        <button className='btn-primary my-5'>Agregar al carrito</button>
+        <AddToCart product={product}/>
 
         {/*Descripcion */}
         <h3 className='font-bold text-sm'>Descripción</h3>
