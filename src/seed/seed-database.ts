@@ -1,60 +1,80 @@
-import { initialData } from "./seed"; // Asegúrate de que la ruta sea correcta
+import { create } from 'zustand';
+import { initialData } from './seed';
 import prisma from '../lib/prisma';
+
 
 
 async function main() {
 
+  // 1. Borrar registros previos
+  // await Promise.all( [
+  await prisma.user.deleteMany();
 
-    //1. Borrar registros previos
-    //await Promise.all([
-    await prisma.productImage.deleteMany();
-    await prisma.product.deleteMany();
-    await prisma.category.deleteMany();
-    //])
+  await prisma.productImage.deleteMany();
+  await prisma.product.deleteMany();
+  await prisma.category.deleteMany();
+  // ]);
+  
+  const { categories, products, users } = initialData;
 
 
-    const {categories, products} = initialData;
+  await prisma.user.createMany({
+    data: users
+  });
 
-    //2 Categorias 
-    const categoriesData = categories.map((name)=>({name}));
-    
-    await prisma.category.createMany({
-        data: categoriesData
+
+
+  //  Categorias
+  // {
+  //   name: 'Shirt'
+  // }
+  const categoriesData = categories.map( (name) => ({ name }));
+  
+  await prisma.category.createMany({
+    data: categoriesData
+  });
+
+  
+  const categoriesDB = await prisma.category.findMany();
+  
+  const categoriesMap = categoriesDB.reduce( (map, category) => {
+    map[ category.name.toLowerCase()] = category.id;
+    return map;
+  }, {} as Record<string, string>); //<string=shirt, string=categoryID>
+  
+  
+
+  // Productos
+
+  products.forEach( async(product) => {
+
+    const { type, images, ...rest } = product;
+
+    const dbProduct = await prisma.product.create({
+      data: {
+        ...rest,
+        categoryId: categoriesMap[type]
+      }
+    })
+
+
+    // Images
+    const imagesData = images.map( image => ({
+      url: image,
+      productId: dbProduct.id
+    }));
+
+    await prisma.productImage.createMany({
+      data: imagesData
     });
 
-    const categoriesDB = await prisma.category.findMany();
-    
-    const categoriesMap = categoriesDB.reduce((map,category)=>{
-        map[category.name.toLowerCase()] = category.id;
-        return map;
-    },{} as Record<string,string>); //<string=shirt, string=categoryID>
+  });
 
 
-    //productos 
-
-    products.forEach(async (product) => {
-        const { type, images, ...rest } = product;
-    
-        const dbProduct = await prisma.product.create({
-            data: {
-                ...rest,
-                categoryId: categoriesMap[type]
-            }
-        });
 
 
-        const imageData = images.map(image=>({
-            url:image,
-            productId: dbProduct.id
-        }));
 
-        await prisma.productImage.createMany({
-            data:imageData
-        });
-
-    });
-    
-    console.log('seed Ejecutado');
+  console.log( 'Seed ejecutado correctamente' );
 }
 
 
@@ -62,10 +82,13 @@ async function main() {
 
 
 
-(() => {
-    
-    if (process.env.NODE_ENV === 'production') return;
 
 
-    main().catch((error) => console.error("Error en main:", error));
-})();
+
+( () => {
+
+  if ( process.env.NODE_ENV === 'production' ) return;
+
+
+  main();
+} )();

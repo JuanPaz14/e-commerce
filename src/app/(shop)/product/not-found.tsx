@@ -1,9 +1,10 @@
-import { PageNotFound } from "@/components";
+import { PageNotFound } from '@/components';
 
 
+export default function NotFoundPageBySlug() {
 
-export default function ProductNotFoundPageBySlug () {
+
   return (
-     <PageNotFound/>
+    <PageNotFound />
   );
 }
